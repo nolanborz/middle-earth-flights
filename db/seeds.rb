@@ -7,3 +7,27 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+#
+Airport.destroy_all
+
+airports = [
+  { code: 'MOR', name: 'Mordor International' },
+  { code: 'HBT', name: 'Hobbiton Regional Airport' },
+  { code: 'RIV', name: 'Rivendell Elven Airways' },
+  { code: 'GON', name: 'Gondor Central' },
+  { code: 'ROH', name: 'Rohan Fields Airport' },
+  { code: 'ISE', name: 'Isengard Fields Airport' },
+  { code: 'MRK', name: 'Mirkwood Forest Landing' },
+  { code: 'ERE', name: 'Erebor Mountain Airport' },
+  { code: 'LHL', name: 'Lothlorien Haven' },
+  { code: 'GSG', name: 'Grey Havens Seaport Airport' }
+]
+
+airports.each do |airport|
+  Airport.create!(
+    code: airport[:code],
+    name: airport[:name]
+  )
+end
+
+puts "Created #{Airport.count} airports"
