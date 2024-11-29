@@ -1,2 +1,61 @@
 <h1>Flights#index</h1>
 <p>Find me in app/views/flights/index.html.erb</p>
+
+# In your flights index view (app/views/flights/index.html.erb)
+<%= form_with url: flights_path, method: :get do |f| %>
+  <div>
+    <%= f.label :departure_airport_id, "Departure Airport:" %>
+    <%= f.collection_select :departure_airport_id, 
+                          Airport.all, 
+                          :id, 
+                          :code, 
+                          prompt: "Select departure airport" %>
+  </div>
+
+  <div>
+    <%= f.label :arrival_airport_id, "Arrival Airport:" %>
+    <%= f.collection_select :arrival_airport_id, 
+                          Airport.all, 
+                          :id, 
+                          :code, 
+                          prompt: "Select arrival airport" %>
+  </div>
+
+  <div>
+    <%= f.label :num_passengers, "Number of Passengers:" %>
+    <%= f.select :num_passengers, 
+                 options_for_select(1..4), 
+                 prompt: "Select number of passengers" %>
+  </div>
+
+  <div>
+    <%= f.label :flight_date, "Flight Date:" %>
+    <%= f.select :flight_date, 
+                 options_from_collection_for_select(
+                   Flight.flight_dates,
+                   :to_s,
+                   ->(date) { date.strftime('%B %d, %Y') }
+                 ),
+                 prompt: "Select flight date" %>
+  </div>
+
+  <%= f.submit "Search Flights" %>
+<% end %>
+#display results
+<% if @flights.any? %>
+  <div id="flights_list">
+    <% @flights.each do |flight| %>
+      <div class="flight">
+        From: <%= flight.departure_airport.code %><br>
+        To: <%= flight.arrival_airport.code %><br>
+        Date: <%= flight.start_datetime.strftime('%B %d, %Y at %I:%M %p') %><br>
+        Duration: <%= flight.duration / 3600 %> hours<br>
+        <hr>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>No flights found matching your criteria.</p>
+<% end %>
+
+
