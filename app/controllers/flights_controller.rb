@@ -2,6 +2,7 @@ class FlightsController < ApplicationController
   # app/controllers/flights_controller.rb
   def index
     @flights = Flight.all
+    @flight_dates = Flight.flight_dates
 
     if params[:flight_date].present?
       selected_date = Date.parse(params[:flight_date])

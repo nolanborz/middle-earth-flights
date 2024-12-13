@@ -1,0 +1,24 @@
+<!-- app/views/bookings/_passenger_fields.html.erb -->
+<div class="bg-white rounded-lg shadow p-6 mb-4" data-passengers-target="fields">
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="text-lg font-semibold">
+      <% passenger_number = form.index ? "#{(form.index.to_i + 1)}" : '_index_' %>
+      Passenger <%= passenger_number %>
+    </h3>
+    <button type="button" 
+            data-action="passengers#remove" 
+            class="px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600 transition-colors">
+      Remove
+    </button>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :email, class: "form-label" %>
+    <%= form.email_field :email, class: "form-control" %>
+  </div>
+</div>
