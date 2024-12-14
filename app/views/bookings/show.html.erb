@@ -1,0 +1,21 @@
+<%# app/views/bookings/show.html.erb %>
+<h1>Booking Confirmation</h1>
+
+<div class="flight-details">
+  <h2>Flight Information</h2>
+  <p>From: <%= @booking.flight.departure_airport.code %></p>
+  <p>To: <%= @booking.flight.arrival_airport.code %></p>
+  <p>Date: <%= @booking.flight.start_datetime.strftime('%B %d, %Y at %I:%M %p') %></p>
+  <p>Duration: <%= @booking.flight.duration / 3600 %> hours</p>
+</div>
+
+<div class="passenger-details">
+  <h2>Passengers</h2>
+  <% @booking.passengers.each_with_index do |passenger, index| %>
+    <div class="passenger">
+      <h3>Passenger <%= index + 1 %></h3>
+      <p>Name: <%= passenger.name %></p>
+      <p>Email: <%= passenger.email %></p>
+    </div>
+  <% end %>
+</div>
